@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaziQuick</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="CitizenLens.css">
+    <script src="CitizenLens.js"></script>
+
+
+    <style>
+        .tab {
+            display: none;
+        }
+
+        #text-message {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-8">
+                <form id="regForm">
+                    <h1 id="register">KaziQuick</h1>
+                    <div class="all-steps" id="all-steps">
+                        <span class="step"><i class="fa fa-map-marker"></i></span>
+                        <span class="step"><i class="fa fa-phone"></i></span>
+                        <span class="step"><i class="fa fa-shopping-cart"></i></span>
+                        <span class="step"><i class="fa fa-tasks"></i></span>
+                        <span class="step"><i class="fa fa-dollar-sign"></i></span>
+                        <span class="step"><i class="fa fa-clipboard-list"></i></span>
+                        <span class="step"><i class="fa fa-image"></i></span> 
+
+
+
+
+
+
+                    </div>
+
+                    <!-- Constituency Dropdown -->
+                     <!-- TAB1 -->
+                    <div class="tab" >
+                        <h4>What's your constituency name?</h4>
+                        <p>
+                          <select name="constituency" oninput="this.className = ''">
+                            <option value="" disabled selected>Select your constituency...</option>
+                            <option value="Westlands">Westlands</option>
+                            <option value="Dagoretti North">Dagoretti North</option>
+                            <option value="Dagoretti South">Dagoretti South</option>
+                            <option value="Langata">Langata</option>
+                            <option value="Kibra">Kibra</option>
+                            <option value="Roysambu">Roysambu</option>
+                            <option value="Kasarani">Kasarani</option>
+                            <option value="Ruaraka">Ruaraka</option>
+                            <option value="Embakasi North">Embakasi North</option>
+                            <option value="Embakasi South">Embakasi South</option>
+                            <option value="Embakasi Central">Embakasi Central</option>
+                            <option value="Embakasi East">Embakasi East</option>
+                            <option value="Embakasi West">Embakasi West</option>
+                            <option value="Makadara">Makadara</option>
+                            <option value="Kamukunji">Kamukunji</option>
+                            <option value="Starehe">Starehe</option>
+                            <option value="Mathare">Mathare</option>
+                          </select>
+                        </p>
+                    </div>
+
+                    <!-- TAB2 -->
+                    <div class="tab">
+                      <h4>What's your phone number?</h4>
+                        <p>
+                          <input type="text" placeholder="My phone..." oninput="this.className = ''" name="phone">
+                        </p>
+                  </div>
+
+                  <!-- TAB3 -->
+                    <div class="tab">
+                      <h4>What Service?</h4>
+                      <p>
+                        <input type="text" placeholder="Baker...Plumber...DJ...Mama Fua" oninput="this.className = ''" name="serviceNeeded">
+                      </p>
+                    </div>
+
+
+                    <!-- TAB4 -->
+                    <div class="tab">
+                        <h4>Do you want to provide this service or receive it?</h4>
+                        <select name="serviceDirection" id="serviceDirection" oninput="this.className = ''">
+                          <option value="" disabled selected>Select an option...</option>
+                          <option value="Give">Give Service</option>
+                          <option value="Receive">Receive Service</option>
+                      </select>
+
+                    </div>
+
+                    <!-- Payment Method Section for Give Service -->
+                     <!-- TAB5 -->
+                    <div class="tab" id="paymentMethodSection">
+                      <h4>How do you want to pay?</h4>
+                      <p>
+                          <select name="paymentMethod" id="paymentMethod" oninput="this.className = ''" onchange="handlePaymentMethodChange()">
+                              <option value="" disabled selected>Select a payment method...</option>
+                              <option value="Project Data">Provide data (image and text) about ongoing CDF projects</option>
+                              <option value="100 KES">Pay 100 KES for 5 job opportunities</option>
+                          </select>
+                      </p>
+                  </div>
+
+
+                  <!-- TAB6 -->
+                    <div class="tab" id="giveServiceSection">
+                        <h4>What CDF project will you use to pay?</h4>
+                        <p>
+                            <select name="cdfProject" id="cdfProject" oninput="this.className = ''">
+                                <option value="" disabled selected>Select a CDF project...</option>
+                                <option value="ProjectBondeni">Bondeni/Kosovo bridge</option>
+                                <option value="ProjectKiamaiko">Kiamaiko borehole</option>
+                                <!-- Add other options here -->
+                            </select>
+                        </p>
+                    </div>
+
+
+                    <!-- Upload Section for Project Data -->
+                     <!-- TAB7 -->
+                    <div class="tab" id="uploadSection">
+                        <h4>Upload Image and Text Data</h4>
+                        <p><input type="file" name="projectImage"></p>
+                        <p><textarea placeholder="Enter text data about the project..." name="projectText"></textarea>
+                        </p>
+                        <button type="button" onclick="handleUploadSubmission()">Submit Data</button>
+                    </div>
+
+                    <div class="thanks-message text-center" id="text-message">
+                        <img src=" " width="100" class="mb-4">
+                        <h3>Thank you for your feedback!</h3>
+                        <span>Thanks for your valuable information. It helps us to improve our services!</span>
+                    </div>
+
+                    <div style="overflow:auto;" id="nextprevious">
+                        <div style="float:right;">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">
+                                <i class="fa fa-angle-double-left"></i>
+                            </button>
+                            <button type="button" id="nextBtn" aria-label="Next">
+                                <i class="fa fa-angle-double-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

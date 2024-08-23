@@ -7,7 +7,7 @@ function showTab(n) {
     var x = document.getElementsByClassName("tab");
     x[n].style.display = "block";
     document.getElementById("prevBtn").style.display = (n == 0) ? "none" : "inline";
-    document.getElementById("nextBtn").innerHTML = (n == (x.length - 1)) ? "Submit" : "<i class='fa fa-angle-double-right'></i>";
+    document.getElementById("nextBtn").innerHTML = (n == (x.length - 1)) ? "<i class='fa fa-paper-plane'></i>"  : "<i class='fa fa-angle-double-right'></i>";
     fixStepIndicator(n);
 }
 
@@ -19,7 +19,8 @@ function nextPrev(n) {
 
     // Check for service type and redirect if necessary
     const serviceType = document.getElementById("serviceDirection").value;
-    if ((currentTab == 4 && serviceType === "Receive") || (currentTab == 7 && serviceType === "Give Service")) {
+    const payment = document.getElementById("paymentMethod").value;
+    if ((currentTab == 4 && serviceType === "Receive") || (currentTab == 7) || (currentTab == 5 && payment == "100 KES")) {
         redirectToMap();
         return;
     }
@@ -43,17 +44,13 @@ function validateForm() {
             valid = false;
         }
     }
-    if (valid) {
-        document.getElementsByClassName('step')[currentTab].className += ' finish';
-    }
+
     return valid;
 }
 
 function fixStepIndicator(n) {
     var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
-    }
+  
     x[n].className += " active";
 }
 
@@ -67,7 +64,7 @@ function redirectToMap() {
         case "ProjectKiamaiko":
             mapUrl = "https://www.google.com/maps/place/Huruma+jonsaga+auto/@-1.2590005,36.8742319,3a,90y,91.53t/data=!3m7!1e1!3m5!1s2hCrqlSpdzWgrjpdUxOfTw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fpanoid%3D2hCrqlSpdzWgrjpdUxOfTw%26cb_client%3Dsearch.gws-prod.gps%26w%3D360%26h%3D120%26yaw%3D106.95775%26pitch%3D0%26thumbfov%3D100!7i16384!8i8192!4m10!1m2!2m1!1sJonsaga+!3m6!1s0x182f14240b7ee183:0x38805fe3af7560cd!8m2!3d-1.2591252!4d36.8746467!15sCgdKb25zYWdh4AEA!16s%2Fg%2F11rq8y9wjz?coh=205409&entry=ttu";            break;
         default:
-            mapUrl = ""; // Handle the case where no project is selected
+            mapUrl = "https://www.google.com/maps/@-1.2610873,36.8589792,3a,75y,90t/data=!3m6!1e1!3m4!1shk2JHjJ81CgWoT5RYHScjQ!2e0!7i16384!8i8192?coh=205409&entry=ttu&g_ep=EgoyMDI0MDgyMC4xIKXMDSoASAFQAw%3D%3D"; // Handle the case where no project is selected
     }
     if (mapUrl) {
         window.location.href = mapUrl;
@@ -86,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const serviceType = document.getElementById("serviceDirection").value;
         const paymentMethod = document.getElementById("paymentMethod").value;
 
-        if (currentTab == 5 && paymentMethod === "Project Data") {
+        if (currentTab == 6 && paymentMethod === "Project Data") {
             handleUploadSubmission();
         } else {
             nextPrev(1);
